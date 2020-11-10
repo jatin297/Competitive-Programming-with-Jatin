@@ -1,1 +1,49 @@
+//This Code is Contributed by Jatin Salgotra.
+{
+//If you are given a number suppose 'N' and asked to find the smallest Factorial Possible which has N trailing zeros.
 
+//I Want You To First Think of a Solution By Yourself Before Moving On To The Solution.
+SOLUTION!!!!
+
+--> Firstly Observe that if we are asked to find the Smallest Factorial Number Possible which can give us N zeros .Then Only count of 5 in the number that can make consecutive zeros in a factorial.
+So we Can say that for Getting Smallest Possible Factorial ,we have to find total number of 5 in it. 
+For Example :-> for n = 1 Smallest Factorial Which can give us 1 zero is 5 (120).as 5 Factorial has one zero.
+similarly for n = 4 Smallest Factorial Which can give us 4 consecutive zero is 20 (2432902008176640000) as it contains last 4 zeros consecutively.
+
+--> Second Thing to observe is when there is a number (25,125,625..etc) they have more than one 5 so for that problem we divide factorial by 5 (we will be using mid 
+of binary search as a factorial) and remove all 5 digits then again divide that number with 25 to remove extra 5's and so-on upto it becomes 1.
+
+##CODE##
+
+def binmid(x):
+     
+    if (x == 1): #base Condition
+        return 5
+
+    low = 0 # lowest element 
+    high = 5 * n # multiplying n with 5 because we have to find 5 and divide them accordingly.
+    
+    while (low < high):
+
+        mid = (low + high) // 2
+
+        if (is_valid(mid, n)):        #Sending 'mid' to function is_valid to check whether it contains zeros more than or equal to 'N'.
+            high = mid                # If found then we got our Factorial so For getting smallest Factorial we will Now put high to mid so that new mid will find smaller factorial.
+        else:
+            low = mid + 1             #If not Found then we Know that current mid does not have enough zeros so we will move further.
+
+    return low # Return The Smallest Factorial Number
+    
+def is_valid(v, n):
+    count = 0
+    f = 5                   #Starting From 5 so That we can Divide by 5,25,125,...so-on.
+    while (f <= v):
+        count += v / f      #Adding the remaining Zeros for a particular mid (v).
+        f *= 5              
+ 
+    return (n <= count)     #Returning Bool which is when Zeros of a particular mid is greater than or equal to 'N'.
+N = 1
+value = binmid(N)
+print(value)
+
+output >>>5 
