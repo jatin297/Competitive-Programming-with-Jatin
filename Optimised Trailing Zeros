@@ -1,0 +1,10 @@
+//Without going into multiple of 5 everytime and doing binary search, we can just divide and add the answer of n/5 That's it!!!
+def trailing(n):
+	i=5
+	c=0
+	while n:
+		c += n//5
+		n//=5
+	return c
+n=int(input())
+print(trailing(n))
