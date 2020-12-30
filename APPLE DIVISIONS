@@ -1,0 +1,14 @@
+Problem-> https://cses.fi/problemset/task/1623
+Solution->
+# IT IS AN EXPONENTIAL-TIME ALGORITHM.
+  n=int(input())
+  a=list(map(int,input().split()))
+  total=sum(a)
+  m = int(1e9)+7
+  for i in range(1<<n):
+      c=0
+      for j in range(n):
+          if i&1<<j:
+              c+=a[j]
+      m = min(m,abs(total-2*c))
+  print(m)
