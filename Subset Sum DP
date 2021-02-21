@@ -1,0 +1,28 @@
+Problem -> https://practice.geeksforgeeks.org/problems/subset-sum-problem2014/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+Solution:
+
+bool check(int N,int ar[],int s){
+    bool dp[N+1][s+1];
+    memset(dp,false, sizeof(dp));
+    for(int i = 0;i<=N;i++) dp[i][0] = true;
+    for(int i = 1;i<=N;i++){
+        for(int j=1;j<=s;j++){
+            if(ar[i-1] <= j) dp[i][j] = dp[i-1][j-ar[i-1]] || dp[i-1][j];
+            else dp[i][j] = dp[i-1][j];
+        }
+    }
+    return dp[N][s];
+}
+
+int equalPartition(int N, int ar[]){
+        int s = 0;
+        for(int i = 0;i<N;i++) s += ar[i];
+        if(s%2 != 0) return 0;
+        else {
+            if(check(N,ar,s/2)) return 1;
+            else return 0;
+        }
+    }
