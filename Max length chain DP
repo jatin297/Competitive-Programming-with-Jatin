@@ -1,0 +1,36 @@
+Problem -> https://practice.geeksforgeeks.org/problems/max-length-chain/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+Solution:
+
+bool cmp(const val&a,const val&b){
+    if(a.second < b.second) return true;
+    else return false;
+}
+int solve(struct val a[] , int n){
+    if(n == 2) {
+        if(a[0].second < a[1].first) return 2;
+        else return 1;
+    }
+    sort(a,a+n,cmp);
+    int lis[n];
+    for(int i=0;i<n;i++) lis[i]= 1;
+    for(int i = 1;i<n;i++) {
+        for(int j=0;j<i;j++) {
+            if(a[i].first > a[j].second  && lis[i] <= lis[j]) {
+                lis[i] = lis[j]+1;
+            }
+        }
+    }
+    int ans = 0;
+    for (int i =0;i<n;i++) ans = max(ans,lis[i]);
+    return ans;
+}
+int maxChainLen(struct val p[],int n)
+{
+    if(n == 1) return 1;
+    else {
+        return solve(p,n);
+    }
+}
