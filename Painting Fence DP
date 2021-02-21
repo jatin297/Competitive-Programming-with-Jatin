@@ -1,0 +1,21 @@
+Problem-> https://practice.geeksforgeeks.org/problems/painting-the-fence3727/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+Solution:
+
+
+long long countWays(int n, int k){
+        if(n==1) return k;
+        else{
+            ll same = k;
+            ll diff = k%n*(k-1)%m;
+            ll total = same+diff;
+            for(ll i = 3;i<=n;i++){
+                same = diff;
+                diff = (total%m)*((k-1)%m);
+                total =same%m+diff%m;
+            }
+    return total%m;
+    
+    }
