@@ -1,0 +1,17 @@
+Problem-> https://practice.geeksforgeeks.org/problems/ncr1019/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+Solution:
+
+int nCr(int n, int k){
+        if(k > n) return 0;
+        int dp[n+1][k+1];
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=min(i,k);j++){
+                if(j==0 || i==j ) dp[i][j] = 1;
+                else dp[i][j] = dp[i-1][j]%m+dp[i-1][j-1]%m;
+            }
+        }
+        return dp[n][k]%m;
+    }
