@@ -1,0 +1,44 @@
+Problem -> https://practice.geeksforgeeks.org/problems/pairs-with-specific-difference/0
+
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+
+Solution:
+
+#include <bits/stdc++.h>
+using namespace std;
+int solve(int a[],int n,int k){
+   sort(a,a+n);
+   int dp[n];
+   for(int i = 0 ;i<n;i++) dp[i] = 0;
+   for(int i= 1;i<n;i++) {
+       if(a[i]-a[i-1] < k) {
+           if(i >= 2) dp[i] = max(dp[i],dp[i-2]+a[i]+ a[i-1]);
+           
+           else dp[i] = max(dp[i],a[i]+a[i-1]);
+       }
+       else dp[i] = dp[i-1];
+   }
+   return dp[n-1];
+}
+int main() {
+	int t;
+	cin>>t;
+	while(t--) {
+	    int n,k;
+	    cin>>n;
+	    int a[n];
+	    for(int i = 0;i<n;i++) {
+	        cin>>a[i];
+	   }
+	    cin>>k;
+	    /*dp.clear();
+        for(int i=0;i<=1001;i++) {
+            dp[i] = -1;
+        }*/
+	    cout<<solve(a,n,k)<<endl;
+	    
+	}
+	return 0;
+}
