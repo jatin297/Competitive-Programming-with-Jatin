@@ -1,0 +1,31 @@
+Problem -> https://practice.geeksforgeeks.org/problems/path-in-matrix3805/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+Solution :
+
+int maximumPath(int N, vector<vector<int>> a)
+    {
+        int n = a.size();
+        int m = a[0].size();
+        if(n == m && n == 1) return a[0][0];
+        int ans = 0;
+        for(int i = 1;i<n;i++) {
+            for(int j = 0;j<m;j++){
+                if(j>0&&j<m-1) {
+                    a[i][j] = a[i][j] + max(a[i-1][j],max(a[i-1][j-1],a[i-1][j+1]));
+                    ans = max(ans,a[i][j]);
+                }
+                else if(j>0) {
+                    a[i][j] = a[i][j] + max(a[i-1][j],a[i-1][j-1]);
+                    ans = max(ans,a[i][j]);
+                }
+                else if(j<m-1) {
+                    a[i][j] = a[i][j] + max(a[i-1][j],a[i-1][j+1]);
+                    ans = max(ans,a[i][j]);
+                }
+                
+            }
+        }
+        return ans;
+    }
