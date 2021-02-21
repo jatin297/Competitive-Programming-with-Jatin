@@ -1,0 +1,40 @@
+Problem -> https://practice.geeksforgeeks.org/problems/egg-dropping-puzzle-1587115620/1
+
+These are Just the Function in which you will have parameter of a problem and this Function will return the output.
+
+
+Solution:
+
+int dp[11][51];
+int solve(int n,int k){
+    if(k == 0 || k == 1) return k;
+    if(n == 1) return k;
+    if(dp[n][k] != -1) return dp[n][k];
+    int ans = INT_MAX;
+    for(int j = 1;j<=k;j++) {
+        int l,r;
+        //solve(n-1,j-1),solve(n,k-j)) + 1;
+        if(dp[n-1][j-1] != -1) {
+            l = dp[n-1][j-1];
+        }
+        else {
+            l = solve(n-1,j-1);
+            dp[n-1][j-1] = l;
+        }
+        if(dp[n][k-j] != -1) {
+            r = dp[n][k-j];
+        }
+        else {
+            r = solve(n,k-j);
+            dp[n][k-j] = r;
+        }
+        int temp = max(l,r)+1;
+        ans = min(ans,temp);
+    }
+    return dp[n][k] = ans;
+}
+int eggDrop(int n, int k) 
+{
+    memset(dp,-1,sizeof(dp));
+    return solve(n,k);
+}
