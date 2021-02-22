@@ -1,0 +1,57 @@
+Problem-> 
+Given a Binary Tree, find size of the Largest Independent Set(LIS) in it. A subset of all tree nodes is an independent set if there is no edge between any two nodes of the subset.
+For example, consider the following binary tree. The largest independent set(LIS) is {10, 40, 60, 70, 80} and size of the LIS is 5.
+
+Solution:
+
+#include <iostream>
+#include<math.h>
+#include<vector>
+#define ll  long long int
+using namespace std;
+class node
+{
+public:
+    int data;
+    int lis;
+    node *left , *right;
+};
+int LIS(node *root) {
+    if(root == NULL) return 0;
+    if(root->lis) return root->lis;
+    if(root->left == NULL && root->right == NULL) {
+        root->lis = 1;
+        return root->lis;
+    }
+    int lis_children = LIS(root->left) + LIS(root->right);
+    int lis_grandchildren = 1;
+    if(root->left) {
+        lis_grandchildren += LIS(root->left->left) + LIS(root->left->right);
+    }
+    if(root->right){
+        lis_grandchildren += LIS(root->right->left) + LIS(root->right->right);
+    }
+    root->lis = max(lis_children,lis_grandchildren);
+    return root->lis;
+}
+node* newnode(int data) {
+    node* temp = new node();
+    temp->data = data;
+    temp->left = NULL;
+    temp->right = NULL;
+    temp->lis = 0;
+    return temp;
+};
+int main()
+{
+    node * root= newnode(10);
+    root->left = newnode(20);
+    root->left->left = newnode(40);
+    root->left->right = newnode(50);
+    root->left->right->left = newnode(70);
+    root->left->right->right = newnode(80);
+    root->right = newnode(30);
+    root->right->right = newnode(60);
+    cout<<"Largest Independent Set is = "<<LIS(root)<<endl;
+ return 0;
+}
